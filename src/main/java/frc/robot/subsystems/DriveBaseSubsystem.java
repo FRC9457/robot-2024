@@ -36,6 +36,10 @@ public class DriveBaseSubsystem extends SubsystemBase {
             rightMotorA = new CANSparkMax(Constants.DriveBaseConstants.RightMotorA, MotorType.kBrushed);
             rightMotorB = new CANSparkMax(Constants.DriveBaseConstants.RightMotorB, MotorType.kBrushed);
         }
+        rightMotorB.setInverted(true);
+        rightMotorB.burnFlash();
+        rightMotorA.setInverted(true);
+        rightMotorA.burnFlash();
         leftMotorA.follow(leftMotorB);
         rightMotorA.follow(rightMotorB);
         robotDrive = new DifferentialDrive(leftMotorB, rightMotorB);
@@ -61,8 +65,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
     public void simulationPeriodic() {
         simDevices[0].getDouble("Velocity").set(leftMotorB.get());
         simDevices[1].getDouble("Velocity").set(leftMotorB.get());
-        simDevices[2].getDouble("Velocity").set(rightMotorB.get());
-        simDevices[3].getDouble("Velocity").set(rightMotorB.get());
+        simDevices[2].getDouble("Velocity").set(-rightMotorB.get());
+        simDevices[3].getDouble("Velocity").set(-rightMotorB.get());
 
     }
 
