@@ -7,7 +7,9 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.RunShooterCommand;
 import frc.robot.subsystems.DriveBaseSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -24,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveBaseSubsystem driveSubsystem = new DriveBaseSubsystem();
-
+  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
@@ -61,6 +63,10 @@ public class RobotContainer {
         new DriveCommand(driveSubsystem,
             m_driverController::getLeftY,
             m_driverController::getRightX));
+    shooterSubsystem.setDefaultCommand(new RunShooterCommand(shooterSubsystem, () -> 0));
+    m_driverController.b().whileTrue(new RunShooterCommand(shooterSubsystem, () -> -0.5));
+    m_driverController.x().whileTrue(new RunShooterCommand(shooterSubsystem, () -> 0.5));
+    m_driverController.a().whileTrue(new RunShooterCommand(shooterSubsystem, () -> 1.0));
   }
 
   /**

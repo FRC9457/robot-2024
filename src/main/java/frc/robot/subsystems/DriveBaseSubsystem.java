@@ -47,7 +47,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     private void simulationInit() {
         REVPhysicsSim physicsSim = REVPhysicsSim.getInstance();
-        simDevices[0] = new SimDeviceSim("SPARK MAX [1]");
+        simDevices[0] = new SimDeviceSim("SPARK MAX [8]");
         simDevices[1] = new SimDeviceSim("SPARK MAX [2]");
         simDevices[2] = new SimDeviceSim("SPARK MAX [3]");
         simDevices[3] = new SimDeviceSim("SPARK MAX [4]");
