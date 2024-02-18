@@ -10,6 +10,12 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.RunShooterCommand;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+
+import java.util.EnumSet;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEvent;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -30,14 +36,15 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
-private final Dashboard dashboard = new Dashboard(driveSubsystem);
+  private final Dashboard dashboard = new Dashboard(driveSubsystem);
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the trigger bindings
-    configureBindings();
     dashboard.shuffleboardSetup();
+    configureBindings();
   }
 
   /**
@@ -60,10 +67,16 @@ private final Dashboard dashboard = new Dashboard(driveSubsystem);
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
+    DriveCommand driveCommand = new DriveCommand(driveSubsystem,
+        m_driverController::getLeftY,
+        m_driverController::getRightX);
+    NetworkTableInstance.getDefault()
+        .addListener(
+            dashboard.rateLimitEntry,
+            EnumSet.of(NetworkTableEvent.Kind.kValueAll),
+            driveCommand::updateRateLimiter);
     driveSubsystem.setDefaultCommand(
-        new DriveCommand(driveSubsystem,
-            m_driverController::getLeftY,
-            m_driverController::getRightX));
+        driveCommand);
     shooterSubsystem.setDefaultCommand(new RunShooterCommand(shooterSubsystem, () -> 0));
     m_driverController.b().whileTrue(new RunShooterCommand(shooterSubsystem, () -> -0.5));
     m_driverController.x().whileTrue(new RunShooterCommand(shooterSubsystem, () -> 0.5));

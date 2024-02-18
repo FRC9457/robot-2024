@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.util.Map;
+
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,6 +15,7 @@ import frc.robot.subsystems.DriveBaseSubsystem;
 /** Add your docs here. */
 public class Dashboard {
     private DriveBaseSubsystem drivebaseSubsystem;
+    public GenericEntry rateLimitEntry;
 
     public Dashboard(DriveBaseSubsystem drivebaseSubsystem) {
         this.drivebaseSubsystem = drivebaseSubsystem;
@@ -20,6 +24,6 @@ public class Dashboard {
 
     public void shuffleboardSetup() {
         Shuffleboard.getTab("SmartDashboard").add("gyro", drivebaseSubsystem.gyro).withWidget(BuiltInWidgets.kGyro);
-
+        rateLimitEntry = Shuffleboard.getTab("SmartDashboard").add("Ratelimit",2.0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max", 10)).getEntry();
     }
 }
