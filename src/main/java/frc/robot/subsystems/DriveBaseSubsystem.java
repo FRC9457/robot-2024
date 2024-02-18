@@ -3,13 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.REVPhysicsSim;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.simulation.SimDeviceSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,6 +23,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     CANSparkMax rightMotorB;
     DifferentialDrive robotDrive;
     private SimDeviceSim[] simDevices = new SimDeviceSim[4];
+    public AHRS gyro = new AHRS(SPI.Port.kMXP);
 
     public DriveBaseSubsystem() {
         if (RobotBase.isSimulation()) {
