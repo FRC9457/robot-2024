@@ -78,9 +78,12 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(
         driveCommand);
     shooterSubsystem.setDefaultCommand(new RunShooterCommand(shooterSubsystem, () -> 0));
-    m_driverController.b().whileTrue(new RunShooterCommand(shooterSubsystem, () -> -0.5));
-    m_driverController.x().whileTrue(new RunShooterCommand(shooterSubsystem, () -> 0.5));
-    m_driverController.a().whileTrue(new RunShooterCommand(shooterSubsystem, () -> 1.0));
+    m_driverController.b()
+        .whileTrue(new RunShooterCommand(shooterSubsystem, () -> dashboard.shooterIntakeSpeedEntry.getDouble(-0.5)));
+    m_driverController.x()
+        .whileTrue(new RunShooterCommand(shooterSubsystem, () -> dashboard.shooterAmpSpeedEntry.getDouble(0.5)));
+    m_driverController.a()
+        .whileTrue(new RunShooterCommand(shooterSubsystem, () -> dashboard.shooterSpeakerSpeedEntry.getDouble(1)));
   }
 
   /**
