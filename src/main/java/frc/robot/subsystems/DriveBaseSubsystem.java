@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveBaseSubsystem extends SubsystemBase {
-    CANSparkMax leftMotorA;
-    CANSparkMax leftMotorB;
-    CANSparkMax rightMotorA;
-    CANSparkMax rightMotorB;
+    public CANSparkMax leftMotorA;
+    public CANSparkMax leftMotorB;
+    public CANSparkMax rightMotorA;
+    public CANSparkMax rightMotorB;
     DifferentialDrive robotDrive;
     private SimDeviceSim[] simDevices = new SimDeviceSim[4];
     public AHRS gyro = new AHRS(SPI.Port.kMXP);
@@ -69,7 +69,6 @@ public class DriveBaseSubsystem extends SubsystemBase {
         simDevices[1].getDouble("Velocity").set(leftMotorB.get());
         simDevices[2].getDouble("Velocity").set(-rightMotorB.get());
         simDevices[3].getDouble("Velocity").set(-rightMotorB.get());
-
     }
 
 }

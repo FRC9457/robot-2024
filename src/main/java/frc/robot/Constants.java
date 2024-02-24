@@ -27,10 +27,16 @@ public final class Constants {
     public static final int RightMotorA = 3;
     public static final int RightMotorB = 4;
 
-    
   }
+
   public static class ShooterConstants {
     public static final int MotorA = 5;
     public static final int MotorB = 6;
+  }
+
+  public static class ClimberConstants {
+    public static final int leftClimberMotor = 7;
+    public static final int rightClimberMotor = 9;
+
   }
 }

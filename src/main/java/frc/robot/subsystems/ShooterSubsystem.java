@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
-  CANSparkMax MotorA;
-  CANSparkMax MotorB;
+  public CANSparkMax MotorA;
+  public CANSparkMax MotorB;
   private SimDeviceSim[] simDevices = new SimDeviceSim[2];
 
   /** Creates a new ShooterSubsystem. */
@@ -25,7 +25,6 @@ public class ShooterSubsystem extends SubsystemBase {
     MotorB = new CANSparkMax(Constants.ShooterConstants.MotorB, MotorType.kBrushless);
     MotorA.follow(MotorB);
     if (RobotBase.isSimulation()) {
-
       simulationInit();
     }
 
@@ -39,7 +38,6 @@ public class ShooterSubsystem extends SubsystemBase {
     REVPhysicsSim physicsSim = REVPhysicsSim.getInstance();
     simDevices[0] = new SimDeviceSim("SPARK MAX [5]");
     simDevices[1] = new SimDeviceSim("SPARK MAX [6]");
-
     physicsSim.addSparkMax(MotorA, DCMotor.getNEO(1));
     physicsSim.addSparkMax(MotorB, DCMotor.getNEO(1));
 

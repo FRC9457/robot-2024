@@ -7,7 +7,9 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.RunClimberCommand;
 import frc.robot.commands.RunShooterCommand;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -31,11 +33,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveBaseSubsystem driveSubsystem = new DriveBaseSubsystem();
-  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  public final DriveBaseSubsystem driveSubsystem = new DriveBaseSubsystem();
+  public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
+      
+  public final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   private final Dashboard dashboard = new Dashboard(driveSubsystem);
 
   /**
@@ -70,6 +74,7 @@ public class RobotContainer {
     DriveCommand driveCommand = new DriveCommand(driveSubsystem,
         m_driverController::getLeftY,
         m_driverController::getRightX);
+
     NetworkTableInstance.getDefault()
         .addListener(
             dashboard.rateLimitEntry,
@@ -77,13 +82,18 @@ public class RobotContainer {
             driveCommand::updateRateLimiter);
     driveSubsystem.setDefaultCommand(
         driveCommand);
+
     shooterSubsystem.setDefaultCommand(new RunShooterCommand(shooterSubsystem, () -> 0));
+    climberSubsystem.setDefaultCommand(new RunClimberCommand(climberSubsystem, () -> 0));
+    m_driverController.rightTrigger().whileTrue(new RunClimberCommand(climberSubsystem, () -> 0.1));
+    m_driverController.leftTrigger().whileTrue(new RunClimberCommand(climberSubsystem, () -> -0.1));
     m_driverController.b()
         .whileTrue(new RunShooterCommand(shooterSubsystem, () -> dashboard.shooterIntakeSpeedEntry.getDouble(-0.5)));
     m_driverController.x()
         .whileTrue(new RunShooterCommand(shooterSubsystem, () -> dashboard.shooterAmpSpeedEntry.getDouble(0.5)));
     m_driverController.a()
         .whileTrue(new RunShooterCommand(shooterSubsystem, () -> dashboard.shooterSpeakerSpeedEntry.getDouble(1)));
+
   }
 
   /**
