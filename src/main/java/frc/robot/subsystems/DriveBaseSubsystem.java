@@ -38,15 +38,6 @@ public class DriveBaseSubsystem extends SubsystemBase {
             rightMotorA = new CANSparkMax(Constants.DriveBaseConstants.RightMotorA, MotorType.kBrushed);
             rightMotorB = new CANSparkMax(Constants.DriveBaseConstants.RightMotorB, MotorType.kBrushed);
         }
-        rightMotorB.setInverted(true);
-        rightMotorB.burnFlash();
-        rightMotorA.setInverted(true);
-        rightMotorA.burnFlash();
-
-        leftMotorB.setInverted(true);
-        leftMotorB.burnFlash();
-        leftMotorA.setInverted(true);
-        leftMotorA.burnFlash();
         
         leftMotorA.follow(leftMotorB);
         rightMotorA.follow(rightMotorB);
