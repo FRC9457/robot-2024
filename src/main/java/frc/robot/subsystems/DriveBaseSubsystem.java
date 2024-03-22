@@ -42,6 +42,12 @@ public class DriveBaseSubsystem extends SubsystemBase {
         rightMotorB.burnFlash();
         rightMotorA.setInverted(true);
         rightMotorA.burnFlash();
+
+        leftMotorB.setInverted(true);
+        leftMotorB.burnFlash();
+        leftMotorA.setInverted(true);
+        leftMotorA.burnFlash();
+        
         leftMotorA.follow(leftMotorB);
         rightMotorA.follow(rightMotorB);
         robotDrive = new DifferentialDrive(leftMotorB, rightMotorB);
