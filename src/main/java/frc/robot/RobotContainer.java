@@ -58,8 +58,7 @@ public class RobotContainer {
    * an arbitrary
    * predicate, or via the named factories in {@link
    * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-   * {@link
-   * CommandXboxController
+   * {@linkyyyyyyyyw
    * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
    * PS4} controllers or
    * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
@@ -73,7 +72,7 @@ public class RobotContainer {
     // cancelling on release.
     DriveCommand driveCommand = new DriveCommand(driveSubsystem,
         m_driverController::getLeftY,
-        m_driverController::getRightX);
+        m_driverController::getRightX); 
 
     NetworkTableInstance.getDefault()
         .addListener(
