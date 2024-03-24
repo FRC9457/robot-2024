@@ -24,7 +24,7 @@ public final class Constants {
   public static class DriveBaseConstants {
     public static final int LeftMotorA = 3;
     public static final int LeftMotorB = 4;
-    public static final int RightMotorA = 8;
+    public static final int RightMotorA = 10;
     public static final int RightMotorB = 2;
 
   }
